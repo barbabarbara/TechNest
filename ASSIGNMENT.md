@@ -1,10 +1,5 @@
 # Inlämningsuppgift – Bygg en E-commerce med HTML, CSS och JavaScript
 
-**Kursprojekt:** E-commerce Web Application  
-**Deadline:** 24 november 2026, kl. 23:59  
-**Muntlig redovisning:** 25 november 2026  
-**Arbetsform:** Grupparbete
-
 ## 1. Uppgiftsbeskrivning
 
 I den här uppgiften ska ni utveckla en fungerande E-commerce-webbplats (e-handel) med hjälp av **HTML, CSS och JavaScript**.
