@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="../js/products.js"></script>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/components.css"/>
+    <link rel="stylesheet" href="../css/responsive.css"/>
+    <title>Products</title>
+</head>
+<body>
+    <main>
+    <section class="products-filter">
+        <div class="product-search">
+
+            <input type="text" id="userInput" placeholder="Search for products..." name="title">
+
+            <label>Price</label>
+            <select id="sort-prices">
+                <option value="">--</option>
+                <option value="">Highest</option>
+                <option value="likes">Lowest</option>
+            </select>
+            
+            <label>Categories</label>
+            <select id="category-select">
+                <option value=""> All Categories</option>
+                <option value="smartphones">Smartphones</option>
+                <option value="laptops">Laptops</option>
+                <option value="tablets">Tablets</option>
+                <option value="mobile-accessories">Mobile accessories</option>
+            </select>            
+        </div>
+    </section>   
+    <section class="product-container">
+        <div class="products"></div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 TechNest. All rights reserved.</p>    
+</footer>
+
+</body>
+</html>
