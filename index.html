@@ -1,17 +1,60 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start | TechNest</title>
+  <link rel="icon" href="assets/icons/favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/products.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Hoppa till innehållet</a>
+  <header>
+    <a href="index.html" class="logo">
+      <img src="assets/images/technest-logo.png" alt="TechNest startsida">
+    </a>
+    <button id="menu-button" type="button" aria-expanded="false" aria-controls="navigation">Meny ☰</button>
+    <nav id="navigation" aria-label="Huvudnavigation">
+      <a href="index.html" aria-current="page">Start</a>
+      <a href="pages/products.html">Produkter</a>
+      <a href="pages/favorites.html">Favoriter</a>
+      <a href="pages/cart.html">Varukorg</a>
+      <a href="pages/admin.html">Admin</a>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="hero">
+      <div>
+        <p class="small-heading">VÄLKOMMEN TILL TECHNEST</p>
+        <h1>Teknik för din vardag</h1>
+        <p>Hitta datorer, mobiler, surfplattor och tillbehör.</p>
+        <a class="button" href="pages/products.html">Se våra produkter</a>
+      </div>
+      <img src="assets/images/technest-icon.png" alt="">
+    </section>
 
-    <title>TechNest</title>
+    <section class="categories" aria-label="Handla efter kategori">
+      <a href="pages/products.html?category=laptops">Bärbara datorer</a>
+      <a href="pages/products.html?category=smartphones">Mobiltelefoner</a>
+      <a href="pages/products.html?category=tablets">Surfplattor</a>
+      <a href="pages/products.html?category=mobile-accessories">Tillbehör</a>
+    </section>
 
-    <!-- Website favicon -->
-    <!-- TechNest browser tab icon -->
-    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.ico" />
-  </head>
-
-  <body>
-    <h1>Welcome to TechNest</h1>
-  </body>
+    <section aria-labelledby="featured-heading">
+      <h2 id="featured-heading">Utvalda produkter</h2>
+      <p id="status" role="status">Laddar produkter…</p>
+      <button id="retry" type="button" hidden>Försök igen</button>
+      <div id="product-list" class="product-grid" aria-busy="true"></div>
+    </section>
+  </main>
+  <footer>
+    <strong>TechNest</strong>
+    <p>Skolprojekt · Priser i USD · Inga riktiga köp</p>
+  </footer>
+  <noscript>Aktivera JavaScript för att se produkterna.</noscript>
+</body>
 </html>

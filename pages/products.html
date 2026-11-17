@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkter | TechNest</title>
+  <link rel="icon" href="../assets/icons/favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <script src="../js/main.js" defer></script>
+  <script src="../js/products.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Hoppa till innehållet</a>
+  <header>
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/technest-logo.png" alt="TechNest startsida">
+    </a>
+    <button id="menu-button" type="button" aria-expanded="false" aria-controls="navigation">Meny ☰</button>
+    <nav id="navigation" aria-label="Huvudnavigation">
+      <a href="../index.html">Start</a>
+      <a href="../pages/products.html" aria-current="page">Produkter</a>
+      <a href="../pages/favorites.html">Favoriter</a>
+      <a href="../pages/cart.html">Varukorg</a>
+      <a href="../pages/admin.html">Admin</a>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <h1>Våra produkter</h1>
+    <p>Hitta rätt teknik med sökning, kategori och pris.</p>
+
+    <form id="catalog-form" role="search" aria-label="Sök och filtrera produkter">
+      <fieldset id="filters" class="filters" disabled>
+        <legend>Sök och filtrera</legend>
+        <label for="search">Sök produkt
+          <input id="search" type="search" placeholder="Sök efter namn">
+        </label>
+        <label for="category">Kategori
+          <select id="category">
+            <option value="">Alla kategorier</option>
+            <option value="laptops">Bärbara datorer</option>
+            <option value="smartphones">Mobiltelefoner</option>
+            <option value="tablets">Surfplattor</option>
+            <option value="mobile-accessories">Tillbehör</option>
+          </select>
+        </label>
+        <label for="sort">Sortera
+          <select id="sort">
+            <option value="default">Standard</option>
+            <option value="price-asc">Pris: lägst först</option>
+            <option value="price-desc">Pris: högst först</option>
+          </select>
+        </label>
+        <button id="clear" type="button">Rensa</button>
+      </fieldset>
+    </form>
+
+    <section aria-label="Produkter">
+      <p id="status" role="status">Laddar produkter…</p>
+      <button id="retry" type="button" hidden>Försök igen</button>
+      <div id="product-list" class="product-grid" aria-busy="true"></div>
+    </section>
+  </main>
+  <footer>
+    <strong>TechNest</strong>
+    <p>Skolprojekt · Priser i USD · Inga riktiga köp</p>
+  </footer>
+  <noscript>Aktivera JavaScript för att se produkterna.</noscript>
+</body>
+</html>
