@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produkter | TechNest</title>
+  <title>Products | TechNest</title>
   <link rel="icon" href="../assets/icons/favicon.ico">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/components.css">
@@ -12,60 +12,60 @@
   <script src="../js/products.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Hoppa till innehållet</a>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header>
     <a href="../index.html" class="logo">
-      <img src="../assets/images/technest-logo.png" alt="TechNest startsida">
+      <img src="../assets/images/technest-logo.png" alt="TechNest home">
     </a>
-    <button id="menu-button" type="button" aria-expanded="false" aria-controls="navigation">Meny ☰</button>
-    <nav id="navigation" aria-label="Huvudnavigation">
-      <a href="../index.html">Start</a>
-      <a href="../pages/products.html" aria-current="page">Produkter</a>
-      <a href="../pages/favorites.html">Favoriter</a>
-      <a href="../pages/cart.html">Varukorg</a>
+    <button id="menu-button" type="button" aria-expanded="false" aria-controls="navigation">Menu ☰</button>
+    <nav id="navigation" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="../pages/products.html" aria-current="page">Products</a>
+      <a href="../pages/favorites.html">Favorites</a>
+      <a href="../pages/cart.html">Cart</a>
       <a href="../pages/admin.html">Admin</a>
     </nav>
   </header>
   <main id="main" tabindex="-1">
-    <h1>Våra produkter</h1>
-    <p>Hitta rätt teknik med sökning, kategori och pris.</p>
+    <h1>Our products</h1>
+    <p>Find the right technology by name, category and price.</p>
 
-    <form id="catalog-form" role="search" aria-label="Sök och filtrera produkter">
+    <form id="catalog-form" role="search" aria-label="Search and filter products">
       <fieldset id="filters" class="filters" disabled>
-        <legend>Sök och filtrera</legend>
-        <label for="search">Sök produkt
-          <input id="search" type="search" placeholder="Sök efter namn">
+        <legend>Search and filter</legend>
+        <label for="search">Search products
+          <input id="search" type="search" placeholder="Search by name">
         </label>
-        <label for="category">Kategori
+        <label for="category">Category
           <select id="category">
-            <option value="">Alla kategorier</option>
-            <option value="laptops">Bärbara datorer</option>
-            <option value="smartphones">Mobiltelefoner</option>
-            <option value="tablets">Surfplattor</option>
-            <option value="mobile-accessories">Tillbehör</option>
+            <option value="">All categories</option>
+            <option value="laptops">Laptops</option>
+            <option value="smartphones">Smartphones</option>
+            <option value="tablets">Tablets</option>
+            <option value="mobile-accessories">Accessories</option>
           </select>
         </label>
-        <label for="sort">Sortera
+        <label for="sort">Sort by
           <select id="sort">
-            <option value="default">Standard</option>
-            <option value="price-asc">Pris: lägst först</option>
-            <option value="price-desc">Pris: högst först</option>
+            <option value="default">Default</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
           </select>
         </label>
-        <button id="clear" type="button">Rensa</button>
+        <button id="clear" type="button">Clear</button>
       </fieldset>
     </form>
 
-    <section aria-label="Produkter">
-      <p id="status" role="status">Laddar produkter…</p>
-      <button id="retry" type="button" hidden>Försök igen</button>
+    <section aria-label="Products">
+      <p id="status" role="status">Loading products…</p>
+      <button id="retry" type="button" hidden>Try again</button>
       <div id="product-list" class="product-grid" aria-busy="true"></div>
     </section>
   </main>
   <footer>
     <strong>TechNest</strong>
-    <p>Skolprojekt · Priser i USD · Inga riktiga köp</p>
+    <p>School project · Prices in USD · No real purchases</p>
   </footer>
-  <noscript>Aktivera JavaScript för att se produkterna.</noscript>
+  <noscript>Enable JavaScript to view the products.</noscript>
 </body>
 </html>

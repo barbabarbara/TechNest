@@ -14,8 +14,8 @@ function updateProducts() {
       if (product) featured.push(product);
     }
     showProducts(featured, productList, 'pages/product.html');
-    statusText.textContent = 'Utvalda produkter från våra kategorier.';
-    if (featured.length === 0) statusText.textContent = 'Inga produkter att visa.';
+    statusText.textContent = 'Featured products from our categories.';
+    if (featured.length === 0) statusText.textContent = 'No products to display.';
     return;
   }
 
@@ -37,12 +37,12 @@ function updateProducts() {
   if (sort === 'price-desc') result.sort((a, b) => b.price - a.price);
 
   showProducts(result, productList, 'product.html');
-  statusText.textContent = result.length + ' produkter';
-  if (result.length === 0) statusText.textContent = 'Inga produkter matchar din sökning.';
+  statusText.textContent = result.length + ' products';
+  if (result.length === 0) statusText.textContent = 'No products match your search.';
 }
 
 async function loadProducts() {
-  statusText.textContent = 'Laddar produkter…';
+  statusText.textContent = 'Loading products…';
   productList.setAttribute('aria-busy', 'true');
   retryButton.hidden = true;
   if (form) document.querySelector('#filters').disabled = true;
@@ -52,7 +52,7 @@ async function loadProducts() {
     updateProducts();
     if (form) document.querySelector('#filters').disabled = false;
   } catch {
-    statusText.textContent = 'Kunde inte ladda produkterna. Kontrollera anslutningen och försök igen.';
+    statusText.textContent = 'Could not load products. Check your connection and try again.';
     retryButton.hidden = false;
   } finally {
     productList.setAttribute('aria-busy', 'false');

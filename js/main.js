@@ -21,10 +21,10 @@ document.addEventListener('keydown', function (event) {
 });
 
 const categories = {
-  laptops: 'Bärbara datorer',
-  smartphones: 'Mobiltelefoner',
-  tablets: 'Surfplattor',
-  'mobile-accessories': 'Tillbehör'
+  laptops: 'Laptops',
+  smartphones: 'Smartphones',
+  tablets: 'Tablets',
+  'mobile-accessories': 'Accessories'
 };
 
 async function getTechProducts() {
@@ -33,7 +33,7 @@ async function getTechProducts() {
   for (const category of Object.keys(categories)) {
     const response = await fetch('https://dummyjson.com/products/category/' + category + '?limit=0');
     if (!response.ok) {
-      throw new Error('Kunde inte hämta produkter.');
+      throw new Error('Could not fetch products.');
     }
     const data = await response.json();
     result = result.concat(data.products);
@@ -55,7 +55,7 @@ function showProducts(products, container, detailPage) {
           <p class="product-category"></p>
           <h3></h3>
           <strong></strong>
-          <span>Visa produkt →</span>
+          <span>View product →</span>
         </div>
       </a>`;
 
