@@ -16,7 +16,7 @@ button, .button {
   padding: 12px 20px;
   border: 0;
   border-radius: 6px;
-  background: #21573b;
+  background: darkgreen;
   color: white;
   text-decoration: none;
   cursor: pointer;
@@ -55,7 +55,7 @@ button:disabled {
   height: 200px;
   padding: 15px;
   object-fit: contain;
-  background: #edf0ed;
+  background: whitesmoke;
 }
 
 .product-content {
@@ -89,7 +89,7 @@ button:disabled {
   padding: 20px;
   border: 1px solid #dbe2dd;
   border-radius: 10px;
-  background: #eaf0e9;
+  background: honeydew;
 }
 
 .filters label {
