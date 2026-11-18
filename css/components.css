@@ -38,7 +38,7 @@ button:disabled {
 
 .product-card {
   background: white;
-  border: 1px solid #dbe2dd;
+  border: 1px solid gainsboro;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -72,12 +72,12 @@ button:disabled {
 }
 
 .product-content span {
-  color: #21573b;
+  color: darkgreen;
   text-decoration: underline;
 }
 
 .product-category {
-  color: #536259;
+  color: dimgray;
   font-size: 13px;
 }
 
@@ -87,7 +87,7 @@ button:disabled {
   gap: 15px;
   margin: 25px 0;
   padding: 20px;
-  border: 1px solid #dbe2dd;
+  border: 1px solid gainsboro;
   border-radius: 10px;
   background: honeydew;
 }
@@ -103,8 +103,8 @@ button:disabled {
   min-height: 46px;
   margin-top: 6px;
   padding: 10px;
-  border: 1px solid #96a59a;
+  border: 1px solid gray;
   border-radius: 5px;
   background: white;
-  color: #18241f;
+  color: darkslategray;
 }

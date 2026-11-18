@@ -7,7 +7,7 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   background: whitesmoke;
-  color: #18241f;
+  color: darkslategray;
 }
 
 a {
@@ -28,7 +28,7 @@ img {
 }
 
 :focus-visible {
-  outline: 3px solid #a94400;
+  outline: 3px solid sienna;
   outline-offset: 4px;
 }
 
@@ -52,7 +52,7 @@ header {
   gap: 20px;
   padding: 12px 5%;
   background: white;
-  border-bottom: 1px solid #dbe2dd;
+  border-bottom: 1px solid gainsboro;
 }
 
 .logo img {
@@ -71,7 +71,7 @@ nav a {
 }
 
 nav a[aria-current] {
-  color: #21573b;
+  color: darkgreen;
   text-decoration: underline;
   font-weight: bold;
 }
@@ -103,7 +103,7 @@ section {
 
 .small-heading {
   font-size: 13px;
-  color: #536259;
+  color: dimgray;
 }
 
 .categories {
@@ -116,7 +116,7 @@ section {
   padding: 16px;
   text-align: center;
   background: white;
-  border: 1px solid #dbe2dd;
+  border: 1px solid gainsboro;
   border-radius: 8px;
 }
 
@@ -124,5 +124,5 @@ footer {
   padding: 25px;
   text-align: center;
   background: white;
-  border-top: 1px solid #dbe2dd;
+  border-top: 1px solid gainsboro;
 }
