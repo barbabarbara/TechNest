@@ -1,69 +1,99 @@
-# TechNest
+# TechNest — Unified E-commerce (HTML, CSS & Vanilla JavaScript)
 
-**En modern elektronikbutik byggd med HTML, CSS och Vanilla JavaScript.**
+An accessible, responsive electronics store built with semantic HTML, CSS and **Vanilla JavaScript ES modules**, powered by the [DummyJSON Products API](https://dummyjson.com/docs/products).
 
-> **Status:** Under utveckling · Grupparbete
+**All text in the site is English.** Prices use USD. Checkout is simulated; no real transactions, personal information or payment details are collected.
 
-TechNest är ett kursprojekt där vi bygger en responsiv e-handelswebbplats för elektronik. Produkterna hämtas från [DummyJSON Products API](https://dummyjson.com/docs/products). Webbplatsen ska erbjuda produktkatalog, sökning, kategorifilter, prissortering, favoriter, varukorg, simulerad kassa samt en administrationsvy för CRUD.
+## Run locally
 
-## Teknik
+1. Open this folder in VS Code.
+2. Run **Live Server** with `index.html` or start a static HTTP server:
 
-- HTML5 och semantisk markup
-- CSS3 (responsiv layout)
-- Vanilla JavaScript med ES-moduler och DOM-manipulation
-- Fetch API med `async/await`, loading states och felhantering
-- LocalStorage för favoriter och varukorg
-- Git och GitHub för grupparbete
+   ```bash
+   python -m http.server 5500
+   ```
 
-## Planerade funktioner
+3. Open `http://localhost:5500/`. Do not use `file://` because ES modules require an HTTP origin.
+4. An internet connection is required for DummyJSON product data and images.
 
-- [ ] Startsida med utvalda elektronikprodukter
-- [ ] Produktkatalog med kombinerbar sökning, kategorifilter och prissortering
-- [ ] Produktdetaljer
-- [ ] Favoriter som sparas lokalt
-- [ ] Varukorg med antal, totalbelopp och simulerad checkout
-- [ ] Administrationsvy för Create, Read, Update, Delete via API
-- [ ] Loading states och begripliga felmeddelanden för alla API-anrop
-- [ ] Mobilmeny och responsiv design
-- [ ] Tillgänglighet enligt relevanta krav i WCAG 2.2 AA
-- [ ] Tidsstyrt bekräftelsemeddelande med `setTimeout()`
+No frontend framework, build tool, or external runtime dependency is required.
 
-**Obs:** DummyJSON simulerar Create, Update och Delete. Ändringarna sparas inte permanent på API-servern.
+## Pages
 
-## Planerade sidor
+| Page | Purpose |
+| --- | --- |
+| `index.html` | Home, curated categories, API-powered featured products |
+| `pages/products.html` | Product catalogue, combined search/category filters/price sorting |
+| `pages/product.html` | Product details, wishlist and add-to-cart |
+| `pages/favorites.html` | LocalStorage favorites with empty state |
+| `pages/cart.html` | Quantities, remove, total and simulated checkout |
+| `pages/admin.html` | Create, read, update, delete (DummyJSON simulated API + local browser preview) |
 
-| Sida            | Fil                    | Syfte                               |
-| --------------- | ---------------------- | ----------------------------------- |
-| Startsida       | `index.html`           | Introduktion och utvalda produkter  |
-| Produkter       | `pages/products.html`  | Katalog, sökning, filter, sortering |
-| Produktdetaljer | `pages/product.html`   | Information om vald produkt         |
-| Favoriter       | `pages/favorites.html` | Sparade produkter                   |
-| Varukorg        | `pages/cart.html`      | Antal, total och simulerat köp      |
-| Administration  | `pages/admin.html`     | CRUD-gränssnitt                     |
+## JavaScript modules
 
-## Starta lokalt
+- `js/api.js`: HTTP requests, error handling, supported categories and merged product data.
+- `js/storage.js`: favorites, cart, and local admin changes in `localStorage`.
+- `js/ui.js`: reusable navigation, cards, formatting, accessibility labels and timed toast messages.
+- `js/main.js`, `products.js`, `product-details.js`, `favorites.js`, `cart.js`, `admin.js`: page logic.
 
-När filerna är implementerade:
+## API CRUD demonstration
 
-1. Klona projektet: `git clone git@github.com:barbabarbara/TechNest.git`
-2. Öppna mappen i VS Code: `code TechNest`
-3. Starta en lokal webbserver, till exempel **Live Server** i VS Code. Öppna inte bara HTML-filerna med `file://`, eftersom projektet använder ES-moduler och Fetch API.
-4. Öppna `index.html` via webbserverns lokala adress.
+Products come from four DummyJSON categories: `smartphones`, `laptops`, `tablets` and `mobile-accessories`.
 
-Projektet kräver ingen npm-installation eller något JavaScript-ramverk.
+| Action | HTTP request | Browser result |
+| --- | --- | --- |
+| Read | GET `/products/category/{slug}?limit=0` | Show products |
+| Create | POST `/products/add` | New product appears locally |
+| Update | PUT `/products/{id}` | Changes appear locally |
+| Delete | DELETE `/products/{id}` | Product disappears locally |
 
+**DummyJSON does not persist POST, PUT or DELETE changes.** To make the demo coherent across pages and browser refreshes, TechNest stores a client-side override in `localStorage` under `technest-store-v2`. Local products use unique IDs starting from 1000001. Updating/deleting local-only products is done in browser state; existing API products use PUT/DELETE. A **Reset local changes** button restores the original API catalogue. The reset only changes the admin overrides; wishlist and cart are separate.
 
-## Documentation
+### LocalStorage values
 
-- [Assignment](docs/ASSIGNMENT.md) – uppgiftsbeskrivningen från kursen (avsnitt 1–6)
-- [Project plan](docs/PROJECT_PLAN.md) – design, filstruktur, arkitektur, arbetsflöde och tidsplan
-- [Development tasks](docs/TASKS.md) – detaljerad checklista och testpunkter
+- `favorites`: product IDs.
+- `cart`: `{id, quantity}` entries, with quantities up to 99.
+- `overrides.created`: simulated new products.
+- `overrides.updated`: changes to existing products keyed by API ID.
+- `overrides.deleted`: IDs hidden from the browser preview.
 
+No credentials, addresses, payment information, or real orders are stored.
 
-## Samarbete
+## Loading and errors
 
-Arbeta i separata `feature/`-branches, öppna Pull Requests och granska ändringar innan de sammanförs med `main`. Alla i gruppen ska kunna förklara centrala delar av koden vid redovisningen den **25 november 2026**.
+All fetch calls go through `api.js` and check HTTP response status. Each relevant page shows loading feedback before fetching, clears it on success and displays an error on failure. Admin controls show pending Create/Update/Delete feedback, and the buttons are disabled during requests.
 
-## Om projektet
+## Accessibility
 
-Detta är en **simulerad e-handel för utbildningsändamål**. Ingen riktig betalning genomförs och inga betalningsuppgifter samlas in. TechNest har en egen visuell identitet och kopierar inte andra butikssajters layout eller logotyper.
+Semantic headings, main landmarks, screen-reader status regions, labeled fields and controls, `aria-pressed` favorite buttons, focus-visible outlines, skip links, keyboard-usable menus, image alternatives, responsive layouts, and reduced-motion preferences. These are WCAG-oriented implementation choices; they are **not** a formal WCAG 2.2 AA certification. Test with keyboard and automated accessibility tooling before submission.
+
+## Timed behavior
+
+The shared `toast()` uses `setTimeout()` to dismiss noncritical feedback after 3.5 seconds. Important confirmation messages such as checkout remain visible on the page.
+
+## Testing
+
+Run:
+
+```bash
+npm test
+```
+
+The project uses Node's built-in test runner (no third-party dependencies). Browser smoke testing is recommended for mobile navigation, filtering/sorting combinations, favorites, cart quantity, checkout, and all CRUD operations.
+
+## Assignment notes
+
+See `docs/ASSIGNMENT.md` for the assignment, `docs/ACCEPTANCE_CHECKLIST.md` for a manual review checklist, and `docs/API_INTEGRATION.md` for the DummyJSON/LocalStorage explanation.
+
+## Unified project provenance
+
+This version consolidates the three submitted TechNest ZIP snapshots:
+- **Existing integrated TechNest:** shared API, admin CRUD + local overrides, branding, multi-page navigation, and reusable UI components.
+- **Frontend/catalogue teammate branch:** reinforced retry/loading controls and combined catalogue search, category filtering, and price sorting.
+- **Shopping teammate branch:** cart item/quantity/total behaviors, favorite and product-detail flows; fixed the earlier `toggleAdd` behavior (repeated Add now increments quantity).
+
+Integration necessarily refactors code, so this list records **feature lineage**, not line-level authorship or individual contribution claims. Confirm the final attribution with teammates before submission.
+
+## Final review
+
+Run `npm test`, then use `docs/ACCEPTANCE_CHECKLIST.md` for manual keyboard, responsive, mobile-menu, checkout and error-state checks. The tests do not certify WCAG 2.2 AA; browser and assistive-technology testing is required. The project uses a demo API, not an authenticated admin backend.

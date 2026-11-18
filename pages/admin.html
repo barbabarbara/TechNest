@@ -1,221 +1,73 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Product Management | TechNest</title>
-
-    <!-- Website favicon -->
-    <link rel="icon" href="../assets/icons/favicon.ico" />
-
-    <!-- Shared TechNest stylesheets -->
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/responsive.css" />
-
-    <!-- Administration page styles -->
-    <link rel="stylesheet" href="../css/admin.css" />
-
-    <!-- Shared navigation functionality -->
-    <script src="../js/main.js" defer></script>
-
-    <!-- Administration functionality -->
-    <script type="module" src="../js/admin.js"></script>
-  </head>
-
-  <body class="admin-page">
-    <!-- Accessibility: skip directly to main content -->
-    <a class="skip-link" href="#main"> Skip to main content </a>
-
-    <!-- Site header -->
-    <header>
-      <a href="../index.html" class="logo">
-        <img src="../assets/images/technest-logo.png" alt="TechNest homepage" />
-      </a>
-
-      <!-- Mobile navigation button -->
-      <button
-        id="menu-button"
-        type="button"
-        aria-expanded="false"
-        aria-controls="navigation"
-      >
-        Menu ☰
-      </button>
-
-      <!-- Main navigation -->
-      <nav id="navigation" aria-label="Main navigation">
-        <a href="../index.html">Home</a>
-        <a href="./products.html">Products</a>
-        <a href="./favorites.html">Favorites</a>
-        <a href="./cart.html">Cart</a>
-        <a href="./admin.html" aria-current="page">Admin</a>
-      </nav>
-    </header>
-
-    <!-- Main administration content -->
-    <main class="admin-intro" id="main" tabindex="-1">
-      <!-- Administration introduction -->
-      <section aria-labelledby="admin-heading">
-        <h1 id="admin-heading">Product Management</h1>
-
-        <p>Add, edit, and delete products in the TechNest store.</p>
-
-        <p>
-          Please note that changes made through DummyJSON are simulated and are
-          not permanently saved on the server.
-        </p>
-      </section>
-
-      <!-- Product creation and editing form -->
-      <section class="admin-panel" aria-labelledby="form-heading">
-        <h2 id="form-heading">Add Product</h2>
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="Manage the TechNest demonstration product catalogue with simulated DummyJSON CRUD operations.">
+  <title>Product management | TechNest</title>
+  <link rel="icon" href="../assets/icons/favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body data-root="../" data-page="admin">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="page-heading shell" aria-labelledby="admin-heading">
+      <p class="eyebrow">PRODUCT CONTROL</p>
+      <h1 id="admin-heading">Manage your catalogue.</h1>
+      <p>Simulated product administration with the DummyJSON API and a persistent local preview.</p>
+    </section>
+    <div class="shell section compact admin-layout">
+      <section class="panel admin-form" aria-labelledby="form-title">
+        <h2 id="form-title">Create product</h2>
+        <p class="small-muted">DummyJSON simulates changes; this browser stores a local preview. No live products are changed.</p>
         <form id="product-form">
-          <!-- Stores the product ID when editing an existing product -->
-          <input type="hidden" id="product-id" name="id" />
-
-          <fieldset>
-            <legend>Product Information</legend>
-
-            <!-- Product title -->
-            <div class="form-field">
-              <label for="product-title"> Product Name </label>
-
-              <input
-                type="text"
-                id="product-title"
-                name="title"
-                maxlength="120"
-                required
-              />
-            </div>
-
-            <!-- Product category -->
-            <div class="form-field">
-              <label for="product-category"> Category </label>
-
-              <select id="product-category" name="category" required>
-                <option value="">Select a category</option>
-                <option value="smartphones">Smartphones</option>
-                <option value="laptops">Laptops</option>
-                <option value="tablets">Tablets</option>
-                <option value="mobile-accessories">Mobile Accessories</option>
-              </select>
-            </div>
-
-            <!-- Product price -->
-            <div class="form-field">
-              <label for="product-price"> Price (USD) </label>
-
-              <input
-                type="number"
-                id="product-price"
-                name="price"
-                min="0"
-                step="0.01"
-                required
-              />
-            </div>
-
-            <!-- Product stock quantity -->
-            <div class="form-field">
-              <label for="product-stock"> Stock Quantity </label>
-
-              <input
-                type="number"
-                id="product-stock"
-                name="stock"
-                min="0"
-                step="1"
-                required
-              />
-            </div>
-
-            <!-- Product description -->
-            <div class="form-field">
-              <label for="product-description"> Product Description </label>
-
-              <textarea
-                id="product-description"
-                name="description"
-                rows="4"
-                maxlength="1000"
-              ></textarea>
-            </div>
-
-            <!-- Product image URL -->
-            <div class="form-field">
-              <label for="product-thumbnail"> Product Image URL </label>
-
-              <input
-                type="url"
-                id="product-thumbnail"
-                name="thumbnail"
-                placeholder="https://example.com/image.jpg"
-              />
-            </div>
-          </fieldset>
-
-          <!-- Form action buttons -->
+          <input id="edit-id" type="hidden" name="id">
+          <label for="admin-title">Product name</label>
+          <input id="admin-title" name="title" maxlength="120" required placeholder="e.g. Wireless headphones">
+          <label for="admin-price">Price (USD)</label>
+          <input id="admin-price" name="price" type="number" min="0.01" step="0.01" required>
+          <label for="admin-stock">Stock quantity</label>
+          <input id="admin-stock" name="stock" type="number" min="0" step="1" required>
+          <label for="admin-category">Category</label>
+          <select id="admin-category" name="category" required>
+            <option value="smartphones">Smartphones</option>
+            <option value="laptops">Laptops</option>
+            <option value="tablets">Tablets</option>
+            <option value="mobile-accessories">Mobile accessories</option>
+          </select>
+          <label for="admin-description">Description</label>
+          <textarea id="admin-description" name="description" rows="4" maxlength="1000" required placeholder="Describe the product"></textarea>
+          <label for="admin-image">Image URL (optional)</label>
+          <input id="admin-image" name="thumbnail" type="url" placeholder="https://example.com/product.jpg">
           <div class="form-actions">
-            <button type="submit" id="save-product">Save Product</button>
-
-            <button type="button" id="cancel-edit" hidden>
-              Cancel Editing
-            </button>
+            <button id="save-product" class="button primary" type="submit">Create product</button>
+            <button id="cancel-edit" class="button subtle" type="button" hidden>Cancel edit</button>
           </div>
         </form>
+        <p id="admin-feedback" class="status" role="status" aria-live="polite" hidden></p>
       </section>
-
-      <!-- Product management table -->
-      <section class="admin-panel" aria-labelledby="products-heading">
-        <h2 id="products-heading">Product List</h2>
-
-        <p>Manage products from the four supported electronics categories.</p>
-
-        <!-- Updated by JavaScript during API operations -->
-        <p id="admin-status" role="status" aria-live="polite">
-          Products have not been loaded yet.
-        </p>
-
-        <!-- Hidden until an error occurs -->
-        <p id="admin-error" role="alert" hidden></p>
-
-        <button type="button" id="retry-products" hidden>Try Again</button>
-
-        <!-- Horizontal scrolling will be styled in CSS -->
-        <div class="admin-table-wrapper">
-          <table id="products-table">
-            <caption>
-              TechNest product inventory and management actions
-            </caption>
-
-            <thead>
-              <tr>
-                <th scope="col">Product</th>
-                <th scope="col">Category</th>
-                <th scope="col">Price (USD)</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-
-            <!-- Product rows will be generated by admin.js -->
-            <tbody id="products-table-body"></tbody>
-          </table>
+      <section class="admin-list" aria-labelledby="products-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="products-heading">Current electronics <span id="admin-count" class="count-label"></span></h2>
+            <p class="small-muted">Edit, delete, or create products in this local demo.</p>
+          </div>
+          <button id="reset-admin" class="button subtle small" type="button">Reset local changes</button>
         </div>
+        <p id="admin-status" class="status" role="status">Loading products...</p>
+        <button id="admin-retry" type="button" class="button small subtle" hidden>Try again</button>
+        <div id="admin-products" class="admin-products" aria-live="off"></div>
       </section>
-    </main>
-
-    <!-- Shared site footer -->
-    <footer>
-      <strong>TechNest</strong>
-      <p>Student project · Prices in USD · No real purchases</p>
-    </footer>
-
-    <!-- Message for visitors without JavaScript -->
-    <noscript> JavaScript is required to manage products. </noscript>
-  </body>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="shell">JavaScript is required for this interactive demonstration.</p></noscript>
+  <script type="module" src="../js/admin.js"></script>
+</body>
 </html>

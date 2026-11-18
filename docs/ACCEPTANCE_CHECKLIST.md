@@ -1,0 +1,21 @@
+# Acceptance checklist
+
+- [ ] Open all 6 pages through the navigation.
+- [ ] Test mobile menu at 390px with keyboard and mouse.
+- [ ] Refresh product catalogue and check loading feedback.
+- [ ] Search for a title, filter by category, sort price ascending/descending together.
+- [ ] Search for a nonsense string and check empty-results message.
+- [ ] Add a favorite; reload and check Favorites page; remove it.
+- [ ] Add the same product twice; verify quantity becomes 2.
+- [ ] Increase/decrease quantity; verify item subtotal and total.
+- [ ] Remove an item, perform demo checkout, verify success and empty cart.
+- [ ] Admin: Create new product and confirm POST in browser Network tab.
+- [ ] Admin: Edit original product and confirm PUT; reload to see local overlay.
+- [ ] Admin: Delete original product and confirm DELETE; reload to see removed locally.
+- [ ] Admin: Edit/delete a locally created product without invalid server calls.
+- [ ] Admin: Reset local changes; original API records return.
+- [ ] Simulate failed API calls and check visible error messages.
+- [ ] Test browser zoom 200%, keyboard focus and reduced-motion behavior.
+- [ ] Check browser console for errors.
+- [ ] `npm test` completes.
+- [ ] Confirm all team members reviewed the final PR before merge.

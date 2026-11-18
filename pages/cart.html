@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f5f5f7" />
+    <meta
+      name="description"
+      content="TechNest — beautifully simple electronics shopping."
+    />
+    <title>Shopping cart | TechNest</title>
+    <link rel="icon" href="../assets/images/technest-icon.png" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+  </head>
+  <body data-root="../" data-page="cart">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="site-header"></div>
+    <main id="main">
+      <section class="page-heading shell">
+        <p class="eyebrow">ALMOST THERE</p>
+        <h1>Your bag.</h1>
+        <p>Review your picks before checking out.</p>
+      </section>
+      <section class="shell cart-layout section compact">
+        <div>
+          <p id="cart-status" class="status" role="status">Loading cart...</p><button type="button" class="button subtle small" id="cart-retry" hidden>Try again</button>
+          <div id="cart-items" class="cart-items"></div>
+          <div id="cart-empty" class="empty-state" hidden>
+            <div class="empty-icon">⌑</div>
+            <h2>Your bag is empty</h2>
+            <p>Good things start with a little browsing.</p>
+            <a href="products.html" class="button primary">Shop electronics</a>
+          </div>
+        </div>
+        <aside class="order-summary panel" id="order-summary">
+          <h2>Order summary</h2>
+          <div class="summary-row">
+            <span>Items</span><span id="cart-count-detail">0</span>
+          </div>
+          <div class="summary-row"><span>Shipping</span><span>Free</span></div>
+          <div class="summary-row total">
+            <strong>Total</strong><strong id="cart-total">$0.00</strong>
+          </div>
+          <button class="button primary full" id="checkout" type="button">
+            Place demo order →
+          </button>
+          <p class="small-muted">
+            Demo checkout only. No payments or personal details collected.
+          </p>
+        </aside>
+      </section>
+      <div class="shell">
+        <div
+          id="order-confirmation"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+      </div>
+    </main>
+    <div id="site-footer"></div>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="../js/cart.js"></script>
+  </body>
+</html>
