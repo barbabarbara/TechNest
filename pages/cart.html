@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="../js/cart.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="shortcut icon" href="#">
+    <title>Shopping cart | TechNest</title>
+
+</head>
+<body>
+<header>
+    <nav>
+    <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="product.html">Product</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="admin.html">Admin</a></li>
+    </ul>
+</nav>
+</header>
+
+   <main id="main">
+      <section class="userCart">
+        <h1>Your bag.</h1>
+      </section>
+      <section class="user-cart">
+        <div id="bag"></div>
+        <div id="cart-empty" class="empty-state" hidden>
+          <div class="empty-icon">&#9633;</div>
+          <h2>Nothing saved yet</h2>
+          <p>Check our product catalogue in here</p>
+          <a href="products.html" class="button primary">Explore our products</a>
+        </div>
+      </section>
+    
+        <aside class="order-summary" id="order-summary">
+          <h2>Order summary</h2>
+          <div class="summary-row">
+            <span>Items</span><span id="cart-count-detail">0</span>
+          </div>
+          <div class="summary-row"><span>Shipping</span><span>Free</span></div>
+          <div class="summary-row total">
+            <strong>Total</strong><strong id="cart-total">$0.00</strong>
+          </div>
+          <button class="button primary full" id="checkout" type="button">
+            Place simulated order &#8594;
+          </button>
+        </aside>
+      </section>
+      <div class="user-order">
+        <div
+          id="order-confirmation"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+      </div>
+    </main>
+</body>
+</html>

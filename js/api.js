@@ -52,14 +52,6 @@ fetchAllProducts()
     // console.log(...data.accessories);
   })
   .catch((error) => console.error("Fetch failed:", error));
-
- 
-// Export function GET METHOD with async/await and ok.response (Parameter:id)
-export async function getProduct(id) {
-  const response = await fetch(`${API}/${id}`);
-  if (!response.ok) throw new Error(`Could not fetch product ${id} (${response.status})`);
-  return response.json();
-}
  
 // Export function POST METHOD with async/await and ok.response (parameter:product)
 export async function createProduct(product) {
