@@ -52,11 +52,13 @@ När filerna är implementerade:
 
 Projektet kräver ingen npm-installation eller något JavaScript-ramverk.
 
-## Dokumentation
 
-- [ASSIGNMENT.md](ASSIGNMENT.md) – uppgiftsbeskrivningen från kursen (avsnitt 1–6)
-- [PROJECT_PLAN.md](PROJECT_PLAN.md) – design, filstruktur, arkitektur, arbetsflöde och tidsplan
-- [TASKS.md](TASKS.md) – detaljerad checklista och testpunkter
+## Documentation
+
+- [Assignment](docs/ASSIGNMENT.md) – uppgiftsbeskrivningen från kursen (avsnitt 1–6)
+- [Project plan](docs/PROJECT_PLAN.md) – design, filstruktur, arkitektur, arbetsflöde och tidsplan
+- [Development tasks](docs/TASKS.md) – detaljerad checklista och testpunkter
+
 
 ## Samarbete
 
