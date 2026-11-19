@@ -1,3 +1,5 @@
+import { isFavorite, toggleFavorite, addToCart, getFavorites, getCart } from './storage.js';
+
 const menuButton = document.querySelector('#menu-button');
 const navigation = document.querySelector('#navigation');
 
@@ -20,29 +22,14 @@ document.addEventListener('keydown', function (event) {
   }
 });
 
-const categories = {
+export const categories = {
   laptops: 'Laptops',
   smartphones: 'Smartphones',
   tablets: 'Tablets',
   'mobile-accessories': 'Accessories'
 };
 
-async function getTechProducts() {
-  let result = [];
-
-  for (const category of Object.keys(categories)) {
-    const response = await fetch('https://dummyjson.com/products/category/' + category + '?limit=0');
-    if (!response.ok) {
-      throw new Error('Could not fetch products.');
-    }
-    const data = await response.json();
-    result = result.concat(data.products);
-  }
-
-  return result;
-}
-
-function showProducts(products, container, detailPage) {
+export function showProducts(products, container, detailPage) {
   container.replaceChildren();
 
   for (const product of products) {
@@ -57,7 +44,11 @@ function showProducts(products, container, detailPage) {
           <strong></strong>
           <span>View product →</span>
         </div>
-      </a>`;
+      </a>
+      <div class="product-actions">
+        <button class="favorite-button" type="button"></button>
+        <button class="cart-button" type="button">Add to cart</button>
+      </div>`;
 
     card.querySelector('a').href = detailPage + '?id=' + product.id;
     card.querySelector('h3').textContent = product.title;
@@ -70,6 +61,62 @@ function showProducts(products, container, detailPage) {
       image.hidden = true;
     });
 
+    const favoriteButton = card.querySelector('.favorite-button');
+    favoriteButton.dataset.fav = product.id;
+    setFavoriteButton(favoriteButton, product);
+    favoriteButton.addEventListener('click', function () {
+      try {
+        const saved = toggleFavorite(product.id);
+        setFavoriteButton(favoriteButton, product);
+        showFeedback(saved ? 'Added to favorites.' : 'Removed from favorites.');
+      } catch (error) {
+        showFeedback(error.message);
+      }
+    });
+
+    const cartButton = card.querySelector('.cart-button');
+    cartButton.dataset.add = product.id;
+    cartButton.setAttribute('aria-label', 'Add ' + product.title + ' to cart');
+    if (product.stock === 0) {
+      cartButton.disabled = true;
+      cartButton.textContent = 'Sold out';
+    }
+    cartButton.addEventListener('click', function () {
+      try {
+        addToCart(product.id);
+        showFeedback('Added to cart.');
+      } catch (error) {
+        showFeedback(error.message);
+      }
+    });
+
     container.append(card);
   }
 }
+
+function setFavoriteButton(button, product) {
+  const saved = isFavorite(product.id);
+  button.textContent = saved ? 'Saved ♥' : 'Favorite ♡';
+  button.setAttribute('aria-pressed', String(saved));
+  button.setAttribute('aria-label', (saved ? 'Remove from favorites: ' : 'Add to favorites: ') + product.title);
+}
+
+let feedbackTimer;
+function showFeedback(message) {
+  const status = document.querySelector('#action-status');
+  status.textContent = message;
+  clearTimeout(feedbackTimer);
+  feedbackTimer = setTimeout(function () {
+    status.textContent = '';
+  }, 3500);
+}
+
+function updateCounts() {
+  document.querySelector('#favorite-count').textContent = getFavorites().length;
+  let count = 0;
+  for (const item of getCart()) count += item.quantity;
+  document.querySelector('#cart-count').textContent = count;
+}
+
+window.addEventListener('technest:changed', updateCounts);
+updateCounts();

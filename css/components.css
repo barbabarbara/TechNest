@@ -37,6 +37,8 @@ button:disabled {
 }
 
 .product-card {
+  display: flex;
+  flex-direction: column;
   background: white;
   border: 1px solid gainsboro;
   border-radius: 10px;
@@ -45,7 +47,7 @@ button:disabled {
 
 .product-link {
   display: block;
-  height: 100%;
+  flex: 1;
   text-decoration: none;
 }
 
@@ -107,4 +109,45 @@ button:disabled {
   border-radius: 5px;
   background: white;
   color: darkslategray;
+}
+
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 18px 18px;
+}
+
+.product-actions button {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.favorite-button {
+  background: white;
+  color: darkgreen;
+  border: 1px solid darkgreen;
+}
+
+.favorite-button[aria-pressed="true"] {
+  background: honeydew;
+}
+
+.action-status:empty {
+  display: none;
+}
+
+.action-status:not(:empty) {
+  position: fixed;
+  bottom: 20px;
+  left: 5%;
+  right: 5%;
+  z-index: 10;
+  margin: 0;
+  padding: 16px;
+  border-radius: 8px;
+  background: darkgreen;
+  color: white;
+  text-align: center;
 }

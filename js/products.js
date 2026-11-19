@@ -1,3 +1,6 @@
+import { getProducts } from './api.js';
+import { categories, showProducts } from './main.js';
+
 const productList = document.querySelector('#product-list');
 const statusText = document.querySelector('#status');
 const retryButton = document.querySelector('#retry');
@@ -48,7 +51,7 @@ async function loadProducts() {
   if (form) document.querySelector('#filters').disabled = true;
 
   try {
-    products = await getTechProducts();
+    products = await getProducts();
     updateProducts();
     if (form) document.querySelector('#filters').disabled = false;
   } catch {
