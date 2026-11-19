@@ -1,5 +1,5 @@
 import { fetchAllProducts } from "./api.js";
-import { getFavorites, toggleFavorite, toggleAdd } from './storage.js';
+import { getFavorites, toggleFavorite, addToCart,} from './storage.js';
 
 let products = [];
 
@@ -26,13 +26,13 @@ function createFavoriteCard(product) {
     });
 
     card.querySelector('.favorite').addEventListener('click', () => {
-        toggleFavorite(product.id);  
+        toggleFavorite(product.id);
         renderFavorites();  
         console.log(product.id)    
     });
-
+    
     card.querySelector('.add').addEventListener('click', () => {
-    toggleAdd(product.id);
+    addToCart(product.id); 
     console.log(product);
     });
 

@@ -1,5 +1,5 @@
 import { fetchAllProducts } from "./api.js";
-import { getCart, setQuantity, clearCart } from "./storage.js";
+import { getCart, setQuantity, clearCart, updatedBagCount} from "./storage.js";
 
 let products = [];
 
@@ -142,3 +142,4 @@ async function init() {
 }
  
 init();
+updatedBagCount();

@@ -1,5 +1,5 @@
 import { fetchAllProducts } from "./api.js";
-import { getFavorites, toggleFavorite, toggleAdd } from "./storage.js";
+import { getFavorites, toggleFavorite, addToCart } from "./storage.js";
 
 let products = [];
 
@@ -84,8 +84,7 @@ function productCard(product) {
     });
 
     card.querySelector('.add').addEventListener('click', () => {
-        toggleAdd(product.id);
-        toggleAdd.textContent = "Added to bag!";
+        addToCart(product.id);
         console.log(product);
     })
 

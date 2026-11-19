@@ -1,5 +1,5 @@
 import { fetchAllProducts} from "./api.js";
-import { getFavorites, toggleFavorite, toggleAdd } from './storage.js';
+import { getFavorites, toggleFavorite, addToCart} from './storage.js';
 
 // Constant 
 const productDetail = document.querySelector(".product-detail");
@@ -47,7 +47,7 @@ function showProduct(p) {
   const message = div.querySelector(".message");
 
   div.querySelector(".add").addEventListener("click", () => {
-    toggleAdd(p.id);
+    addToCart(p.id);
     console.log(p)
     message.textContent = "Added to bag!";
   });

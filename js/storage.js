@@ -7,10 +7,12 @@ export function getFavorites() {
         return [];
     }
 }
+
 // Export function saveFavorites with localStorage 
 export function saveFavorites (favorites) {
     localStorage.setItem("favorites", JSON.stringify(favorites));
 }
+
 // Export function toggleFavorites by through productId
 export function toggleFavorite(productId) {
     const favorites = getFavorites();
@@ -18,9 +20,25 @@ export function toggleFavorite(productId) {
         ? favorites.filter(id => id !== productId)
         : [...favorites, productId];
     saveFavorites(updated);
+    updatedFavCount();
     return updated.includes(productId); 
 }
 
+// Export function count favorite items (nav)
+export function updatedFavCount() {
+    const favCount = document.querySelector('.fav-count');
+    if(favCount) {
+        favCount.textContent = getFavorites().length;
+    }
+}
+
+// Export function count Cart items (nav)
+export function updatedBagCount() {
+    const bagCount = document.querySelector('.bag-count');
+    if(bagCount) {
+        bagCount.textContent = getCart().length;
+    }
+}
 
 // Export function getCart with localStorage
 export function getCart() {
@@ -39,6 +57,7 @@ export function getCart() {
 // Export function saveCart with localStorage
 export function saveCart (cart) {
     localStorage.setItem("add", JSON.stringify(cart));
+    updatedBagCount();
 }
 
 // Export function toggleAdd through productId
@@ -75,3 +94,9 @@ export function setQuantity(productId, quantity) {
 export function clearCart() {
     saveCart([]);
 }
+
+// EventListener update items (nav)
+document.addEventListener('DOMContentLoaded', () =>{
+    updatedFavCount();
+    updatedBagCount();
+})
