@@ -1,0 +1,153 @@
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 15px;
+  padding: 12px;
+  background: white;
+}
+
+.skip-link:focus {
+  top: 10px;
+}
+
+button, .button {
+  display: inline-block;
+  min-height: 44px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 6px;
+  background: darkgreen;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+}
+
+#menu-button {
+  display: none;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.product-link {
+  display: block;
+  flex: 1;
+  text-decoration: none;
+}
+
+.product-link img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  padding: 15px;
+  object-fit: contain;
+  background: whitesmoke;
+}
+
+.product-content {
+  padding: 18px;
+}
+
+.product-content h3 {
+  overflow-wrap: anywhere;
+}
+
+.product-content strong, .product-content span {
+  display: block;
+  margin-top: 12px;
+}
+
+.product-content span {
+  color: darkgreen;
+  text-decoration: underline;
+}
+
+.product-category {
+  color: dimgray;
+  font-size: 13px;
+}
+
+.filters {
+  display: flex;
+  align-items: end;
+  gap: 15px;
+  margin: 25px 0;
+  padding: 20px;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  background: honeydew;
+}
+
+.filters label {
+  flex: 1;
+  min-width: 0;
+}
+
+.filters input, .filters select {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background: white;
+  color: darkslategray;
+}
+
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 18px 18px;
+}
+
+.product-actions button {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.favorite-button {
+  background: white;
+  color: darkgreen;
+  border: 1px solid darkgreen;
+}
+
+.favorite-button[aria-pressed="true"] {
+  background: honeydew;
+}
+
+.action-status:empty {
+  display: none;
+}
+
+.action-status:not(:empty) {
+  position: fixed;
+  bottom: 20px;
+  left: 5%;
+  right: 5%;
+  z-index: 10;
+  margin: 0;
+  padding: 16px;
+  border-radius: 8px;
+  background: darkgreen;
+  color: white;
+  text-align: center;
+} 

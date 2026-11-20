@@ -1,19 +1,8 @@
-import { fetchAllProducts} from "./api.js";
+import { getProducts } from "./api.js";
 import { getFavorites, toggleFavorite, addToCart} from './storage.js';
 
 // Constant 
 const productDetail = document.querySelector(".product-detail");
-
-// Async function getAllProducts, returns array (destructuring) data
-async function getAllProducts() {
-    const data = await fetchAllProducts()
-    return [
-      ...data.smartphones,
-      ...data.laptops,
-      ...data.tablets,
-      ...data.accessories,
-    ];
-  }
   
 // Function create product details (div) 
 function createDetailHTML(p, isFav) {
@@ -55,6 +44,7 @@ function showProduct(p) {
   favBtn.addEventListener("click", () => {
     toggleFavorite(p.id);
     console.log(p)
+    message.textContent = "Added to favourites!"
     favBtn.textContent = getFavorites().includes(p.id) ? "♥" : "♡";
   });
 
@@ -71,7 +61,7 @@ async function init() {
   }
 
   try {
-    const products = await getAllProducts();
+    const products = await getProducts();
     const product = products.find((p) => p.id === id);
 
     if (product) {

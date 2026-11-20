@@ -1,102 +1,85 @@
-// Export functions getFavorites with localStorage
-export function getFavorites() {
-    try {
-        const stored = JSON.parse(localStorage.getItem('favorites'));
-        return Array.isArray(stored) ? stored : [];
-    } catch {
-        return [];
-    }
+const KEY = "technest-store-v2";
+const EMPTY = { favorites: [], cart: [], overrides: { created: [], updated: {}, deleted: [] } };
+
+function read() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return structuredClone(EMPTY);
+    return {
+      favorites: Array.isArray(parsed.favorites) ? parsed.favorites : [],
+      cart: Array.isArray(parsed.cart) ? parsed.cart : [],
+      overrides: {
+        created: Array.isArray(parsed.overrides?.created) ? parsed.overrides.created : [],
+        updated: parsed.overrides?.updated && typeof parsed.overrides.updated === "object" ? parsed.overrides.updated : {},
+        deleted: Array.isArray(parsed.overrides?.deleted) ? parsed.overrides.deleted : [],
+      },
+    };
+  } catch {
+    return structuredClone(EMPTY);
+  }
 }
 
-// Export function saveFavorites with localStorage 
-export function saveFavorites (favorites) {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+function write(data) {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(data));
+  } catch (error) {
+    throw new Error("Unable to save in this browser. Check your storage settings.", { cause: error });
+  }
+  window.dispatchEvent(new Event("technest:changed"));
 }
 
-// Export function toggleFavorites by through productId
-export function toggleFavorite(productId) {
-    const favorites = getFavorites();
-    const updated = favorites.includes(productId)
-        ? favorites.filter(id => id !== productId)
-        : [...favorites, productId];
-    saveFavorites(updated);
-    updatedFavCount();
-    return updated.includes(productId); 
+export function getFavorites() { return read().favorites; }
+export function isFavorite(id) { return getFavorites().includes(Number(id)); }
+export function toggleFavorite(id) {
+  id = Number(id);
+  const data = read();
+  data.favorites = data.favorites.includes(id)
+    ? data.favorites.filter(value => value !== id)
+    : [...data.favorites, id];
+  write(data);
+  return data.favorites.includes(id);
 }
 
-// Export function count favorite items (nav)
-export function updatedFavCount() {
-    const favCount = document.querySelector('.fav-count');
-    if(favCount) {
-        favCount.textContent = getFavorites().length;
-    }
+export function getCart() { return read().cart; }
+export function addToCart(id, count = 1) {
+  id = Number(id);
+  if (!Number.isFinite(id) || !Number.isInteger(count) || count < 1) return;
+  const data = read();
+  const item = data.cart.find(entry => entry.id === id);
+  if (item) item.quantity = Math.min(99, item.quantity + count);
+  else data.cart.push({ id, quantity: Math.min(99, count) });
+  write(data);
 }
-
-// Export function count Cart items (nav)
-export function updatedBagCount() {
-    const bagCount = document.querySelector('.bag-count');
-    if(bagCount) {
-        bagCount.textContent = getCart().length;
-    }
+export function setQuantity(id, quantity) {
+  id = Number(id);
+  quantity = Number(quantity);
+  if (!Number.isInteger(quantity)) return;
+  const data = read();
+  data.cart = data.cart.filter(entry => entry.id !== id);
+  if (quantity > 0) data.cart.push({ id, quantity: Math.min(99, quantity) });
+  write(data);
 }
-
-// Export function getCart with localStorage
-export function getCart() {
-    try {
-        const stored = JSON.parse(localStorage.getItem('add'));
-        if (!Array.isArray(stored)) return [];
-
-        return stored.map(i =>
-            typeof i === 'object' && i !== null ? i : { id: i, quantity: 1 }
-        );
-    } catch {
-        return [];
-    }
-}
-
-// Export function saveCart with localStorage
-export function saveCart (cart) {
-    localStorage.setItem("add", JSON.stringify(cart));
-    updatedBagCount();
-}
-
-// Export function toggleAdd through productId
-export function toggleAdd (productId) {
-    const cart = getCart();
-    const exists = cart.some(i => i.id === productId);
-    const updated = exists
-        ? cart.filter(i => i.id !== productId)
-        : [...cart, { id: productId, quantity: 1 }];
-    saveCart(updated);
-    return !exists; 
-}
-
-// Export function addtoCart through productId
-export function addToCart(productId) {
-    const cart = getCart();
-    const exists = cart.some(i => i.id === productId);
-    const updated = exists
-        ? cart.map(i => i.id === productId ? { ...i, quantity: i.quantity + 1 } : i)
-        : [...cart, { id: productId, quantity: 1 }];
-    saveCart(updated);
-}
-
-// Export function setQuantity through productId and quantity
-export function setQuantity(productId, quantity) {
-    const cart = getCart();
-    const updated = quantity <= 0
-        ? cart.filter(i => i.id !== productId)
-        : cart.map(i => i.id === productId ? { ...i, quantity } : i);
-    saveCart(updated);
-}
-
-// Function that resetCart
 export function clearCart() {
-    saveCart([]);
+  const data = read();
+  data.cart = [];
+  write(data);
 }
 
-// EventListener update items (nav)
-document.addEventListener('DOMContentLoaded', () =>{
-    updatedFavCount();
-    updatedBagCount();
-})
+export function getOverrides() { return read().overrides; }
+export function saveOverrides(overrides) {
+  const data = read();
+  data.overrides = overrides;
+  write(data);
+}
+export function resetOverrides() {
+  const data = read();
+  data.overrides = structuredClone(EMPTY.overrides);
+  write(data);
+}
+export function removeDeletedProductReferences(ids) {
+  const data = read();
+  const blocked = new Set(ids.map(Number));
+  data.favorites = data.favorites.filter(id => !blocked.has(Number(id)));
+  data.cart = data.cart.filter(item => !blocked.has(Number(item.id)));
+  write(data);
+}

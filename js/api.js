@@ -1,94 +1,60 @@
-const API = "https://dummyjson.com/products"; 
-let products = [];
- 
-// GET METHOD: Fetch all the products urls with async/await, try/catch and response.ok for error handling
-export async function fetchAllProducts() {
-  const urls = [
-    `${API}/category/smartphones`,
-    `${API}/category/laptops`,
-    `${API}/category/tablets`,
-    `${API}/category/mobile-accessories`,
-  ];
- 
-  try {
-    const responses = await Promise.all(urls.map((url) => fetch(url)));
- 
-    responses.forEach((res) => {
-      if (!res.ok) {
-        throw new Error(`Error with fetching: ${res.url} (${res.status})`);
-      }
-    });
- 
-    const [smartphones, laptops, tablets, accessories] = await Promise.all(
-      responses.map((res) => res.json())
-    );
- 
-    return {
-      smartphones: smartphones.products,
-      laptops: laptops.products,
-      tablets: tablets.products,
-      accessories: accessories.products,
-    };
+import { getOverrides } from "./storage.js";
 
-  } catch (error) {
-    console.error("Something went wrong:", error);
-    throw error;
+export const CATEGORIES = Object.freeze([
+  "smartphones", "laptops", "tablets", "mobile-accessories",
+]);
+const API_URL = "https://dummyjson.com/products";
+let baseProducts = null;
+
+async function request(path, options = {}) {
+  const response = await fetch(`${API_URL}${path}`, options);
+  if (!response.ok) throw new Error(`DummyJSON request failed (HTTP ${response.status}).`);
+  const data = await response.json();
+  if (!data || typeof data !== "object") throw new Error("Unexpected response from DummyJSON.");
+  return data;
+}
+
+export async function getProducts({ fresh = false } = {}) {
+  if (!baseProducts || fresh) {
+    const results = await Promise.all(CATEGORIES.map(async category => {
+      const data = await request(`/category/${category}?limit=0`);
+      if (!Array.isArray(data.products)) throw new Error("Unexpected API response.");
+      return data.products;
+    }));
+    baseProducts = results.flat();
   }
+  const { created, updated, deleted } = getOverrides();
+  const removed = new Set(deleted.map(Number));
+  return [
+    ...baseProducts.filter(product => !removed.has(product.id))
+      .map(product => ({ ...product, ...(updated[product.id] || {}) })),
+    ...created.filter(product => !removed.has(product.id)),
+  ];
 }
 
-// Iniciates the fetching of the four categories and pack them in a single list of products (catch error)
-fetchAllProducts()
-  .then((data) => {
-    products = [
-      ...data.smartphones,
-      ...data.laptops,
-      ...data.tablets,
-      ...data.accessories,
-    ];
-    console.log(products);
-    // console.log(...data.smartphones),
-    // console.log(...data.laptops),
-    // console.log(...data.tablets),
-    // console.log(...data.accessories);
-  })
-  .catch((error) => console.error("Fetch failed:", error));
- 
-// Export function POST METHOD with async/await and ok.response (parameter:product)
-export async function createProduct(product) {
-  const response = await fetch(`${API}/add`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
-
-  });
-
-  if (!response.ok) 
-
-    throw new Error(`Could not create product (${response.status})`);
-
-  return response.json();
+export async function getProduct(id) {
+  id = Number(id);
+  if (!Number.isInteger(id)) return null;
+  return (await getProducts()).find(product => product.id === id) || null;
 }
- 
-// Export function PUT METHOD with async/await and ok.response (parameter: id, changes)
-export async function updateProduct(id, changes) {
-  const response = await fetch(`${API}/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(changes),
-  });
 
-  if (!response.ok) 
-    throw new Error(`Could not update product ${id} (${response.status})`);
+const jsonOptions = (method, data) => ({
+  method,
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(data),
+});
 
-  return response.json();
+export const createProduct = data => request("/add", jsonOptions("POST", data));
+export const updateProduct = (id, data) => request(`/${encodeURIComponent(id)}`, jsonOptions("PUT", data));
+export const deleteProduct = id => request(`/${encodeURIComponent(id)}`, { method: "DELETE" });
+
+export async function fetchAllProducts() {
+  const all = await getProducts();
+  return {
+    smartphones: all.filter(product => product.category === "smartphones"),
+    laptops: all.filter(product => product.category === "laptops"),
+    tablets: all.filter(product => product.category === "tablets"),
+    "mobile-accessories": all.filter(product => product.category === "mobile-accessories"),
+  };
 }
- 
-// Export function DELETE METHOD with async/await and ok.response (parameter: id)
-export async function deleteProduct(id) {
-  const response = await fetch(`${API}/${id}`, { method: "DELETE" });
-
-  if (!response.ok) 
-    throw new Error(`Could not delete product ${id} (${response.status})`);
-
-  return response.json();
-}
+export const fetchProductById = getProduct;

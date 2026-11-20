@@ -1,5 +1,5 @@
-import { fetchAllProducts } from "./api.js";
-import { getCart, setQuantity, clearCart, updatedBagCount} from "./storage.js";
+import { getProducts } from "./api.js";
+import { getCart, setQuantity, clearCart } from "./storage.js";
 
 let products = [];
 
@@ -126,20 +126,13 @@ checkoutBtn.addEventListener("click", handleCheckout);
  
 // Iniciates async function
 async function init() {
-  try {
-    const data = await fetchAllProducts();
-    products = [
-      ...data.smartphones,
-      ...data.laptops,
-      ...data.tablets,
-      ...data.accessories,
-    ];
-    render();
-  } catch (error) {
-    console.error(error);
-    cartItems.textContent = "Unable to load your bag right now.";
-  }
+    try {
+        products = await getProducts();
+        render();
+    } catch (error) {
+        console.error(error);
+        favoritesContainer.textContent = 'Unable to load your cart right now.';
+    }
 }
- 
 init();
-updatedBagCount();
+ 

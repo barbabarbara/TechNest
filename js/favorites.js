@@ -1,4 +1,4 @@
-import { fetchAllProducts } from "./api.js";
+import { getProducts } from "./api.js";
 import { getFavorites, toggleFavorite, addToCart,} from './storage.js';
 
 let products = [];
@@ -55,8 +55,7 @@ export function renderFavorites() {
 // async function that iniciates (destructuring)
 async function init() {
     try {
-        const data = await fetchAllProducts();
-        products = [...data.smartphones, ...data.laptops, ...data.tablets, ...data.accessories];
+        products = await getProducts();
         renderFavorites();
     } catch (error) {
         console.error(error);
